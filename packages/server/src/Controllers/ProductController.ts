@@ -43,11 +43,21 @@ const routes = {
     req.io.emit('newProduct', newProduct)
     return res.status(200).send(newProduct)
   },
-  async index(req, res) {
+  async index(req: Request, res: Response): Promise<Response> {
     const products = await Product.find({})
       .populate('userID')
       .sort('-createdAt')
     return res.send(products)
+  },
+  async delete(req: Request, res: Response): Promise<Response> {
+    const { productId: string } = req.params
+    const product = await Product.findById(productId)
+
+    product.deleteOne()
+
+    return res.send({
+      done: 'Produto excluido com sucesso'
+    })
   }
 }
 
