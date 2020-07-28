@@ -50,7 +50,7 @@ const routes = {
     return res.send(products)
   },
   async delete(req: Request, res: Response): Promise<Response> {
-    const { productId: string } = req.params
+    const { productId } = req.params
     const product = await Product.findById(productId)
 
     product.deleteOne()
