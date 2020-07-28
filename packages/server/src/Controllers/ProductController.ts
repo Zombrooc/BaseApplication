@@ -4,7 +4,7 @@ import { File } from 'multer'
 import User from '../Models/User'
 import Product from '../Models/Product'
 
-import FileUploader from '../services/fileUpload'
+import { FileUploader } from '../services/fileUtils'
 
 interface IMulterRequest extends Request {
   file: File

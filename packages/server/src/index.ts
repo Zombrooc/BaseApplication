@@ -2,9 +2,9 @@ import { Server } from 'http'
 import socket from 'socket.io'
 import { json, urlencoded } from 'body-parser'
 import express, { NextFunction, Response, Request } from 'express'
-import { config } from 'dotenv'
+import dotenv from 'dotenv'
 // import path from 'path'
-import mongoose from 'mongoose'
+import { connect } from 'mongoose'
 import cors from 'cors'
 import usersRoutes from './Routes/Users'
 import productsRoutes from './Routes/Products'
@@ -13,7 +13,7 @@ interface IaddSocketIo extends Request {
   io: socket.Server
 }
 
-config()
+dotenv.config()
 const app = express()
 const server = new Server(app)
 const io = socket(server)
@@ -27,7 +27,7 @@ app.use(
 
 app.use(cors())
 
-mongoose.connect(process.env.MONGO_URL, {
+connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

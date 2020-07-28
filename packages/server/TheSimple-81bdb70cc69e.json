@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "thesimple",
+  "private_key_id": "81bdb70cc69e9b3d071d9d4fc41c0c8d28d72ccd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCgbarGo44B7nTH\nuIPP2QtvQocjsAfHZZC1Q3YXV16b0M1Alkvp6IwFyzCxTQWtviMJTdsFcHZYu0Gh\nVp3aNNE0Gtvnh+to+tKqhIl3GI2CAjKy8ctTmurrcUO6ug31rNI4p9TGj9M8vsyT\nF2Vr8iSsANSE3r+cef/ryTwbMJkkcjrgZThQy1WxfZc6I1rob20wGMMpDdhYCrn0\nx53mun4NmolVWDMP4IJPm1qvaXsaUJgV7BNTzG8Tpj3bMcDCoL5MrTo1Pmy+FOJj\npH0L0ArxWW0G1hAulsvnF8phr47BEoL+79CYaED+t+qd7SoYZek3gUnpcVh2FFJg\nZG7v8THJAgMBAAECggEABhg8e2jlwXWHarn8CfanLE4k96pdlUnqvjQmpZrcXYOI\ndKpxDl0XCrZOLoIsU84sIxOZ3UJJQLQ2eVRi0VId24KktY5Ql2+l9rPrzAI7CAQg\n3HL6pD23rIOkTND6LEnpP51CpFt87SsbdwAVyozLr1wltrmGooFxA0plFexZ+Qwt\nempkNYhnDXp2PXxGK/lScxPGvBJvJhIJlT8XtNpniiBdN+0W+KpEiWLXefegb5I+\ngD+HAI3otktzhXdI0UR8P01B+tpmapP56L5Kv7LkjPg2eP0kB1NL+7uQr+bRKfWf\n5xe/Ejs8Z0eFiRorXbRgUg7UeXdJSqCqUII002TiLQKBgQDXpTPNMROJtPshXllO\nkIoAEkqh0DaK7PyM/yzBIb+xMl8C78Gkiho9oDSFe3Ln/UHynjfPI7U+VdlFmTeu\n1wdFdjdqpAoXRRJ/icsUSASq4saHepK5LpCTBYDlPOmQlmCH3X/XScjIZsGsV57e\nL3lTHryDy0zAO7oLI1oGc5c2NQKBgQC+czfvTw5JY7cbtxSad/onFF+xi08eRiYk\nmgY2gzbBmCAqKWfi4xyktGaqwd8+fyf8BLiVt4qbHXWXICSOvYeur8x8c0UeFG9n\nbf6UfZqp3wsMs8K1URDOiPPG5E3Jpd8brU+RdaneLgMQRmM5Vns5E2F4e5S4hdP/\nz5xUODXvxQKBgQDLmwmb9XhTDvQF/4Um7sW9Z4fb3DGDXlrd7ZieCXVqovqeVS1q\nY5J/GSI93d8SN0brAoQDKd3Yq0nnstCmXhRZe1K7d4KnkenzTXDXB2CQ0GlORWb/\nPX33sryOtMJ6Z+Fgprwr01imDo9SX7B6bCyLVHv9nBgtcLcqCQjZCo58+QKBgFR9\n41vc89alUXAPSim5fpZl2Ip45nHk5zknyAfZMKq0pdhupDMpVOTRUBcDido9KW0K\nXyW01t44NJoGXZGiDhb20T6JGSneIQp+5wnTq5EfbdSFz6UHQPCQG66qTMRgPVoX\nCoza6bCzMxK+V3jxoBtTONPt563xWXtNDOrkQTGNAoGACiIF/uD75Z/HeoUbOgN6\n0KpR2/nLLxwUjnRRHJKmCChBlnPU0mCzWsVC4TI1gcYzE5Nnm/oBezvMig6+CL/X\na1s0q6l0pAThc0eTtdHDWdfNvO+WAZzE7p4E8Q4avTqvuwCJ47nuMQyHWQqMbB2E\n4hxLxvIurMxd/R7WkqqYkdI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "thesimple-filestorage@thesimple.iam.gserviceaccount.com",
+  "client_id": "107476201368554822275",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/thesimple-filestorage%40thesimple.iam.gserviceaccount.com"
+}
