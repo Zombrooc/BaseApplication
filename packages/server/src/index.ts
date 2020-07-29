@@ -1,5 +1,5 @@
 import { Server } from 'http'
-import socket from 'socket.io'
+import socket, { Socket } from 'socket.io'
 import { json, urlencoded } from 'body-parser'
 import express, { NextFunction, Response, Request } from 'express'
 import dotenv from 'dotenv'
@@ -9,7 +9,7 @@ import cors from 'cors'
 import usersRoutes from './Routes/Users'
 import productsRoutes from './Routes/Products'
 
-interface IaddSocketIo extends Request {
+interface ISocketIo extends Request {
   io: socket.Server
 }
 
@@ -34,7 +34,7 @@ connect(process.env.MONGO_URL, {
   useCreateIndex: true
 })
 
-app.use((req: IaddSocketIo, res: Response, next: NextFunction) => {
+app.use((req: ISocketIo, res: Response, next: NextFunction) => {
   req.io = io
   next()
 })

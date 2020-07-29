@@ -19,7 +19,6 @@ export class FileUtils {
   }
 
   uploadFile (
-    this: ObjectConstructor,
     imageName: string,
     imageContent: string,
     mimetype: string,

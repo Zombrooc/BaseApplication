@@ -1,16 +1,28 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
+import { NextFunction } from 'express'
+
+interface IUser extends mongoose.Document {
+  firstName: string
+  lastName: string
+  fullName: string
+  email: string
+  password: string
+  isFodaBagarai: boolean
+  createdAt: Date
+  updatedAt: Date
+}
 
 const userSchema = new mongoose.Schema({
-  first_name: {
+  firstName: {
     type: String,
     required: true
   },
-  last_name: {
+  lastName: {
     type: String,
     required: true
   },
-  full_name: {
+  fullName: {
     type: String,
     required: true
   },
@@ -48,11 +60,10 @@ const userSchema = new mongoose.Schema({
   }
 })
 
-userSchema.pre('save', async function (next) {
+userSchema.pre<IUser>('save', async function (next: NextFunction) {
   const hash = await bcrypt.hashSync(this.password, 10)
   this.password = hash
 
   next()
 })
-
-export default mongoose.model('User', userSchema)
+export default mongoose.model<IUser>('User', userSchema)

@@ -5,9 +5,11 @@ import User from '../Models/User'
 import Product from '../Models/Product'
 
 import { FileUtils } from '../services/fileUtils'
+import socket from 'socket.io'
 
 interface IMulterRequest extends Request {
   file: File
+  io: socket.Server
 }
 
 const routes = {
@@ -23,7 +25,6 @@ const routes = {
     const { userID, discount } = req.body
 
     const { originalname, buffer, mimeType } = req.file
-
     const user = await User.findById(userID).select('+isFodaBagarai')
 
     if (!user.isFodaBagarai) {

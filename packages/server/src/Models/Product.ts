@@ -1,5 +1,18 @@
 import mongoose from 'mongoose'
 
+interface IProduct extends mongoose.Document {
+  productName: string
+  description: string
+  discount: number
+  price: number
+  image: string
+  quantityInStock: number
+  featured: boolean
+  userID: mongoose.Schema.Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
+}
+
 const ProductSchema = new mongoose.Schema({
   productName: {
     type: String,
@@ -46,4 +59,4 @@ const ProductSchema = new mongoose.Schema({
   }
 })
 
-export default mongoose.model('Product', ProductSchema)
+export default mongoose.model<IProduct>('Product', ProductSchema)
