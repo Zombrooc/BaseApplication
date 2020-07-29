@@ -1,5 +1,5 @@
-import { Request, Response } from 'express'
 import * as bcrypt from 'bcryptjs'
+import { Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 // const { OAuth2Client } = require('google-auth-library');
 
@@ -7,10 +7,10 @@ import authConfig from '../config/auth.json'
 import User from '../Models/User'
 
 export default {
-  async store (req: Request, res: Response) {
+  async store(req: Request, res: Response): Promise<Response> {
     const { fullName, email, password } = req.body
 
-    if (await User.findOne({ email: email })) {
+    if (await User.findOne({ email })) {
       return res.status(409).send({
         field: 'email',
         message: 'Já existe um usuário com esse e-mail'
@@ -23,11 +23,11 @@ export default {
     const lastName = name[name.length - 1]
 
     const newUser = new User({
-      first_name: firstName,
-      last_name: lastName,
-      full_name: fullName,
-      email: email,
-      password: password
+      firstName,
+      lastName,
+      fullName,
+      email,
+      password
     })
 
     try {
@@ -46,7 +46,7 @@ export default {
       return res.send(error)
     }
   },
-  async authenticate (req: Request, res: Response) {
+  async authenticate(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body
 
     const user = await User.findOne({ email }).select('+password')
@@ -63,7 +63,7 @@ export default {
 
     user.password = undefined
 
-    res.send({
+    return res.send({
       user,
       token: jwt.sign({ id: user.id }, authConfig.secret, {
         expiresIn: 1586465556615
@@ -112,7 +112,7 @@ export default {
   //   }
 
   // },
-  async show (req: Request, res: Response) {
+  async show(req: Request, res: Response): Promise<Response> {
     const user = await User.findById(req.body.userID)
 
     return res.send(user)

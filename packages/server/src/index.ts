@@ -1,13 +1,14 @@
-import { Server } from 'http'
-import socket, { Socket } from 'socket.io'
+/* eslint-disable import/no-extraneous-dependencies */
 import { json, urlencoded } from 'body-parser'
-import express, { NextFunction, Response, Request } from 'express'
-import dotenv from 'dotenv'
-// import path from 'path'
-import { connect } from 'mongoose'
 import cors from 'cors'
-import usersRoutes from './Routes/Users'
+import dotenv from 'dotenv'
+import express, { NextFunction, Response, Request } from 'express'
+import { Server } from 'http'
+import { connect } from 'mongoose'
+import socket from 'socket.io'
+
 import productsRoutes from './Routes/Products'
+import usersRoutes from './Routes/Users'
 
 interface ISocketIo extends Request {
   io: socket.Server
@@ -44,7 +45,7 @@ app.use('/products', productsRoutes)
 
 server.listen(process.env.PORT || 3333, () => {
   console.log(
-    `⚡️[server]: Server is running at https://localhost:${
+    `⚡️ [server]: Server is running at https://localhost:${
       process.env.PORT || 3333
     }`
   )

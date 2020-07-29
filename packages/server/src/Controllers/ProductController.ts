@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import { File } from 'multer'
-
-import User from '../Models/User'
-import Product from '../Models/Product'
-
-import { FileUtils } from '../services/fileUtils'
 import socket from 'socket.io'
+
+import Product from '../Models/Product'
+import User from '../Models/User'
+import { FileUtils } from '../services/fileUtils'
 
 interface IMulterRequest extends Request {
   file: File
@@ -50,7 +49,7 @@ const routes = {
     return res.send(products)
   },
   async delete(req: Request, res: Response): Promise<Response> {
-    const productId: string = req.params.productId
+    const { productId } = req.params
 
     const product = await Product.findById(productId)
 

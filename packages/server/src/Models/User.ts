@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import { NextFunction } from 'express'
+import mongoose from 'mongoose'
 
 interface IUser extends mongoose.Document {
   firstName: string
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validate: {
-      validator: function (value: string) {
+      validator(value: string) {
         // eslint-disable-next-line no-useless-escape
         return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
           value
@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema({
   }
 })
 
-userSchema.pre<IUser>('save', async function (next: NextFunction) {
+userSchema.pre<IUser>('save', async (next: NextFunction) => {
   const hash = await bcrypt.hashSync(this.password, 10)
   this.password = hash
 

@@ -1,5 +1,5 @@
-import { verify } from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
+import { verify } from 'jsonwebtoken'
 
 import authToken from '../config/auth.json'
 
@@ -7,6 +7,7 @@ const authMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
+  // eslint-disable-next-line consistent-return
 ): Response => {
   const authHeader = req.headers.authorization || req.body.token
 
@@ -28,7 +29,7 @@ const authMiddleware = (
 
   verify(token, authToken.secret, (err, decoded) => {
     if (err) {
-      res.status(401).send({ error: 'Token Invalido' })
+      return res.status(401).send({ error: 'Token Invalido' })
     }
 
     req.body.userID = decoded.id
