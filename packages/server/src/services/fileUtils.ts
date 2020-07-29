@@ -51,7 +51,7 @@ export class FileUtils {
     return publicUrl
   }
 
-  async deleteFile (this: ObjectConstructor, fileName: string): Promise<void> {
+  async deleteFile (fileName: string): Promise<void> {
     const storage = new Storage({
       keyFile: './TheSimple-81bdb70cc69e.json',
       keyFilename: './TheSimple-81bdb70cc69e.json'
