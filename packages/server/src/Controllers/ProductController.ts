@@ -4,7 +4,7 @@ import { File } from 'multer'
 import User from '../Models/User'
 import Product from '../Models/Product'
 
-import { FileUploader } from '../services/fileUtils'
+import { FileUtils } from '../services/fileUtils'
 
 interface IMulterRequest extends Request {
   file: File
@@ -30,9 +30,8 @@ const routes = {
       return res.status(401).send({ error: 'Usuário não autorizado' })
     }
 
-    const fileUploader = new FileUploader()
-    fileUploader.uploadFile(originalname, buffer, mimeType, next)
-    const publicUrl = fileUploader.getUrl()
+    const fileUtils = new FileUtils()
+    const publicUrl = fileUtils.uploadFile(originalname, buffer, mimeType, next)
 
     const newProduct = await Product.create({
       ...req.body,
@@ -50,10 +49,22 @@ const routes = {
     return res.send(products)
   },
   async delete(req: Request, res: Response): Promise<Response> {
-    const { productId } = req.params
+    const productId: string = req.params.productId
+
     const product = await Product.findById(productId)
 
-    product.deleteOne()
+    if (!product) {
+      return res.send({
+        error:
+          'Nenhum produto encontrado com esse ID, talvez ele já tenha sido excluido'
+      })
+    }
+
+    const fileUtils = new FileUtils()
+    const fileName: string = product.image.split('/')[4]
+    await fileUtils.deleteFile(fileName)
+
+    await product.deleteOne()
 
     return res.send({
       done: 'Produto excluido com sucesso'

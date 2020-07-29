@@ -6,13 +6,8 @@ import { NextFunction } from 'express'
 
 config()
 
-export class FileUploader {
-  publicUrl: string
-  constructor (publicUrl = '') {
-    this.publicUrl = publicUrl
-  }
-
-  stringToSlug (this: ObjectConstructor, str: string): string {
+export class FileUtils {
+  slugfy (this: ObjectConstructor, str: string): string {
     return str.toString()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
@@ -23,16 +18,16 @@ export class FileUploader {
       .replace(/--+/g, '-')
   }
 
-  async uploadFile (
+  uploadFile (
     this: ObjectConstructor,
     imageName: string,
     imageContent: string,
     mimetype: string,
     next: NextFunction
-  ): Promise<void> {
+  ): string {
     const [name, extension] = imageName.split('.')
 
-    const fileName = `${randomBytes(16).toString('hex')}-${this.stringToSlug(name)}.${extension}`
+    const fileName = `${randomBytes(16).toString('hex')}-${this.slugfy(name)}.${extension}`
     const storage = new Storage({
       keyFile: './TheSimple-81bdb70cc69e.json',
       keyFilename: './TheSimple-81bdb70cc69e.json'
@@ -54,10 +49,16 @@ export class FileUploader {
       .on('finish', () => {})
       .end(imageContent)
     const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-    this.publicUrl = publicUrl
+    return publicUrl
   }
 
-  getUrl (this: ObjectConstructor): string {
-    return this.publicUrl
+  async deleteFile (this: ObjectConstructor, fileName: string): Promise<void> {
+    const storage = new Storage({
+      keyFile: './TheSimple-81bdb70cc69e.json',
+      keyFilename: './TheSimple-81bdb70cc69e.json'
+    })
+
+    const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET)
+    await bucket.file(fileName).delete()
   }
 }
