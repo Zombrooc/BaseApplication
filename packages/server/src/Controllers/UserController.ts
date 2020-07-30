@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken'
 // const { OAuth2Client } = require('google-auth-library');
 
 import authConfig from '../config/auth.json'
-import User from '../Models/User'
+import User, { IUser } from '../Models/User'
 
 export default {
   async store (req: Request, res: Response): Promise<Response> {
@@ -23,18 +23,18 @@ export default {
     const lastName = name[name.length - 1]
 
     const newUser = new User({
+      ...req.body,
       firstName,
-      lastName,
-      fullName,
-      email,
-      password,
+      lastName
     })
 
     try {
-      await newUser.save()
+      await newUser.save();
 
-      newUser.password = undefined
-      newUser.isFodaBagarai = undefined
+      newUser.password = undefined;
+      newUser.isFodaBagarai = undefined;
+
+      console.log(newUser);
 
       return res.send({
         user: newUser,

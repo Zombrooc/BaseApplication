@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import { NextFunction } from 'express'
 import mongoose from 'mongoose'
 
-interface IUser extends mongoose.Document {
+export interface IUser extends mongoose.Document {
   firstName: string
   lastName: string
   fullName: string
@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema({
   }
 })
 
-userSchema.pre<IUser>('save', async (next: NextFunction) => {
+userSchema.pre<IUser>('save', async function(next: NextFunction) {
   const hash = await bcrypt.hashSync(this.password, 10)
   this.password = hash
 

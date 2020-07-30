@@ -27,6 +27,8 @@ const routes = {
     const { originalname, buffer, mimeType } = req.file
     const user = await User.findById(userID).select('+isFodaBagarai')
 
+    console.log(user);
+
     if (!user.isFodaBagarai) {
       return res.status(401).send({ error: 'Usuário não autorizado' })
     }
