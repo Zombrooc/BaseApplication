@@ -78,12 +78,5 @@
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }
     ]
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {
-        "directory": "packages/server/*/tsconfig.json"
-      }
-    }
   }
 }

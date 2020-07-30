@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcryptjs'
+import { compareSync } from 'bcryptjs'
 import { Request, Response } from 'express'
 import * as jwt from 'jsonwebtoken'
 // const { OAuth2Client } = require('google-auth-library');
@@ -7,13 +7,13 @@ import authConfig from '../config/auth.json'
 import User from '../Models/User'
 
 export default {
-  async store(req: Request, res: Response): Promise<Response> {
+  async store (req: Request, res: Response): Promise<Response> {
     const { fullName, email, password } = req.body
 
     if (await User.findOne({ email })) {
       return res.status(409).send({
         field: 'email',
-        message: 'Já existe um usuário com esse e-mail'
+        message: 'Já existe um usuário com esse e-mail',
       })
     }
 
@@ -27,7 +27,7 @@ export default {
       lastName,
       fullName,
       email,
-      password
+      password,
     })
 
     try {
@@ -39,14 +39,14 @@ export default {
       return res.send({
         user: newUser,
         token: jwt.sign({ id: newUser.id }, authConfig.secret, {
-          expiresIn: 1586465556615
-        })
+          expiresIn: 1586465556615,
+        }),
       })
     } catch (error) {
       return res.send(error)
     }
   },
-  async authenticate(req: Request, res: Response): Promise<Response> {
+  async authenticate (req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body
 
     const user = await User.findOne({ email }).select('+password')
@@ -57,7 +57,7 @@ export default {
         .send({ error: 'Nenhum usuário encontrado com esse e-mail' })
     }
 
-    if (!(await bcrypt.compareSync(password, user.password))) {
+    if (!(await compareSync(password, user.password))) {
       return res.status(403).send({ error: 'Senha incorreta' })
     }
 
@@ -66,55 +66,13 @@ export default {
     return res.send({
       user,
       token: jwt.sign({ id: user.id }, authConfig.secret, {
-        expiresIn: 1586465556615
-      })
+        expiresIn: 1586465556615,
+      }),
     })
   },
-  // async tokenSignIn(req, res){
-
-  //   const { tokenID } = req.body;
-
-  //   try{
-  //     const client = new OAuth2Client("397791177987-udqqjh8jo7pgmri2aqj0kc78tfj1jjh7.apps.googleusercontent.com");
-  //     const ticket = await client.verifyIdToken({
-  //         idToken: tokenID,
-  //         audience: "397791177987-udqqjh8jo7pgmri2aqj0kc78tfj1jjh7.apps.googleusercontent.com",
-  //     });
-  //     const payload = ticket.getPayload();
-
-  //     const user = await User.findOne({ email: payload.email });
-
-  //     if (user){
-  //       return res.send({
-  //         user,
-  //         token: jwt.sign({id: user.id}, authConfig.secret, {
-  //           expiresIn: 1586465556615
-  //         })
-  //       })
-  //     }else{
-
-  //       const newUser = await User.create({
-  //         full_name: payload.name,
-  //         first_name: payload.given_name,
-  //         last_name: payload.family_name,
-  //         email: payload.email
-  //       });
-
-  //       return res.send({
-  //         user: newUser,
-  //         token: jwt.sign({id: newUser.id}, authConfig.secret, {
-  //           expiresIn: 1586465556615
-  //         })
-  //       })
-  //     }
-  //   }catch(error){
-  //     console.log(error);
-  //   }
-
-  // },
-  async show(req: Request, res: Response): Promise<Response> {
+  async show (req: Request, res: Response): Promise<Response> {
     const user = await User.findById(req.body.userID)
 
     return res.send(user)
-  }
+  },
 }

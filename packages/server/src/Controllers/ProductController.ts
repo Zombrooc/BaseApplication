@@ -21,6 +21,7 @@ const routes = {
       return res.status(400).send({ error: 'No file to be uploaded.' })
     }
 
+
     const { userID, discount } = req.body
 
     const { originalname, buffer, mimeType } = req.file
