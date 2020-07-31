@@ -1,4 +1,7 @@
-module.exports = {
+moduole.exports = {
+  semi: false,
   singleQuote: true,
-  trailingComma: 'es5',
-};
+  arrowParens: 'avoid',
+  trailingComma: 'none',
+  endOfLine: 'auto'
+}

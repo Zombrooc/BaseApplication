@@ -6,8 +6,19 @@ import { NextFunction } from 'express'
 
 config()
 
-export class FileUtils {
-  slugfy (this: ObjectConstructor, str: string): string {
+interface FileUtilsInterface {
+  slugfy(str: string): string;
+  uploadFile(
+    imageName: string,
+    imageContent: string,
+    mimetype: string,
+    next: NextFunction
+  ): string;
+  deleteFile(fileName: string): Promise<void>;
+}
+
+export class FileUtils implements FileUtilsInterface {
+  slugfy (str){
     return str.toString()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
@@ -18,12 +29,7 @@ export class FileUtils {
       .replace(/--+/g, '-')
   }
 
-  uploadFile (
-    imageName: string,
-    imageContent: string,
-    mimetype: string,
-    next: NextFunction
-  ): string {
+  uploadFile (imageName, imageContent, mimetype, next) {
     const [name, extension] = imageName.split('.')
 
     const fileName = `${randomBytes(16).toString('hex')}-${this.slugfy(name)}.${extension}`
@@ -51,7 +57,7 @@ export class FileUtils {
     return publicUrl
   }
 
-  async deleteFile (fileName: string): Promise<void> {
+  async deleteFile (fileName){
     const storage = new Storage({
       keyFile: './TheSimple-81bdb70cc69e.json',
       keyFilename: './TheSimple-81bdb70cc69e.json'

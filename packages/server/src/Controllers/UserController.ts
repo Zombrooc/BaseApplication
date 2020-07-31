@@ -34,8 +34,6 @@ export default {
       newUser.password = undefined;
       newUser.isFodaBagarai = undefined;
 
-      console.log(newUser);
-
       return res.send({
         user: newUser,
         token: jwt.sign({ id: newUser.id }, authConfig.secret, {
