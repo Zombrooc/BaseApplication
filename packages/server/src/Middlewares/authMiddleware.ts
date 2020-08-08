@@ -32,7 +32,7 @@ const authMiddleware = (
       return res.status(401).send({ error: 'Token Invalido' })
     }
 
-    req.body.userID = decoded.id
+    req.userID = decoded.id
     return next()
   })
 }

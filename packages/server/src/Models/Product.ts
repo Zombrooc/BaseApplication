@@ -8,9 +8,8 @@ interface IProduct extends mongoose.Document {
   image: string
   quantityInStock: number
   featured: boolean
-  userID: mongoose.Schema.Types.ObjectId
-  createdAt: Date
-  updatedAt: Date
+  createdAt: number
+  updatedAt: number
 }
 
 const ProductSchema = new mongoose.Schema({
@@ -43,10 +42,6 @@ const ProductSchema = new mongoose.Schema({
   featured: {
     type: Boolean,
     default: false
-  },
-  userID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
   },
   createdAt: {
     type: Date,

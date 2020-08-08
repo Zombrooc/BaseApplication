@@ -17,6 +17,7 @@ routes.post(
   ProductController.store
 )
 routes.get('/', ProductController.index)
+routes.get('/:productID', ProductController.show)
 routes.delete('/:productId', authMiddleware, ProductController.delete)
 
 export default routes

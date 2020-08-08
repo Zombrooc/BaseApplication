@@ -8,7 +8,8 @@ import { FileUtils } from '../services/fileUtils'
 
 interface IMulterRequest extends Request {
   file: File
-  io: socket.Server
+  io: socket.Server,
+  userID: String
 }
 
 const routes = {
@@ -21,7 +22,8 @@ const routes = {
       return res.status(400).send({ error: 'No file to be uploaded.' })
     }
 
-    const { userID, discount } = req.body
+    const { discount } = req.body
+    const userID = req.userID
 
     const { originalname, buffer, mimeType } = req.file
 
@@ -39,15 +41,20 @@ const routes = {
       discount: discount || 0,
       image: publicUrl
     })
-    newProduct.userID = undefined
     req.io.emit('newProduct', newProduct)
     return res.status(200).send(newProduct)
   },
   async index(req: Request, res: Response): Promise<Response> {
     const products = await Product.find({})
-      .populate('userID')
       .sort('-createdAt')
     return res.send(products)
+  },
+  async show (req: Request, res: Response): Promise<Response> {
+    const { productID } = req.params
+
+    const productDetails = await Product.findById(productID)
+
+    return res.send(productDetails)
   },
   async delete(req: Request, res: Response): Promise<Response> {
     const { productId } = req.params
